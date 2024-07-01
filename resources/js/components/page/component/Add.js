@@ -37,7 +37,6 @@ const Add = () => {
     axios
       .get(`/api/section/${event.target.value}`)
       .then((response) => {
-        console.log("SECTIONS", response);
         setSectionlist(response.data.data);
       })
       .catch((error) => {

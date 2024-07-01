@@ -19,8 +19,8 @@ const Edit = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [status, setStatus] = useState("");
-  const [menuid, setMenuid] = useState();
-  const [sectionid, setSectionid] = useState();
+  const [menuid, setMenuid] = useState("");
+  const [sectionid, setSectionid] = useState("");
   const [menulist, setMenulist] = useState([]);
   const [sectionlist, setSectionlist] = useState([]);
   const [imageUrl, setImageUrl] = useState("");

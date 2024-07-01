@@ -19,7 +19,7 @@ const Edit = () => {
   const [url, setUrl] = useState("");
   const [menuposition, setMenuposition] = useState("");
   const [status, setStatus] = useState("");
-  const [menuid, setMenuid] = useState();
+  const [menuid, setMenuid] = useState("");
   const [menulist, setMenulist] = useState([]);
 
   const handleChangestatus = (event) => {
@@ -33,6 +33,7 @@ const Edit = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+
     formData.append("status", status);
     formData.append("parentmenu", menuid);
 
@@ -73,6 +74,7 @@ const Edit = () => {
       .get(`/api/menu/edit/${params.id}`)
       .then(({ data }) => {
         const alldata = data.data;
+        console.log(alldata);
         setTitle(alldata._title);
         setUrl(alldata._url);
         setMenuposition(alldata._sort);

@@ -19,7 +19,7 @@ const Edit = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [status, setStatus] = useState("");
-  const [menuid, setMenuid] = useState();
+  const [menuid, setMenuid] = useState("");
   const [menulist, setMenulist] = useState([]);
   const [imageUrl, setImageUrl] = useState("");
   const [title, setTitle] = useState("");
