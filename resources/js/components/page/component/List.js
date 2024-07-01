@@ -66,7 +66,6 @@ const List = () => {
     },
     {
       name: "Status",
-      cell: (row) => row._status,
       cell: (row) => (row._status === 1 ? "Active" : "Inactive"),
       center: true,
     },

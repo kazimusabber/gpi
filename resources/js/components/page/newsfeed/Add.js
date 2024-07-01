@@ -102,12 +102,12 @@ const Add = () => {
                   value={publishdate}
                   onChange={(newValue) => setPublishdate(newValue)}
                   format="YYYY-MM-DD"
-                  sx={{ minWidth: 494, backgroundColor: "white" }}
+                  sx={{ minWidth: 725, backgroundColor: "white" }}
                 />
               </LocalizationProvider>
             </Grid>
             <Grid item xs={6}>
-              <FormControl variant="outlined" sx={{ minWidth: 494 }}>
+              <FormControl variant="outlined" sx={{ minWidth: 725 }}>
                 <InputLabel>Status</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
@@ -115,7 +115,7 @@ const Add = () => {
                   onChange={handleChangestatus}
                   label="Status"
                   name="status"
-                  sx={{ minWidth: 494, backgroundColor: "white" }}
+                  sx={{ minWidth: 725, backgroundColor: "white" }}
                 >
                   <MenuItem value="">
                     <em>None</em>

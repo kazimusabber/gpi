@@ -148,7 +148,7 @@ const Add = () => {
                 InputProps={{ style: { backgroundColor: "white" } }}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 id="standard-basic"
                 fullWidth
@@ -227,7 +227,7 @@ const Add = () => {
                   value={fromdate}
                   onChange={(newValue) => setFromdate(newValue)}
                   format="YYYY-MM-DD"
-                  sx={{ minWidth: 494, backgroundColor: "white" }}
+                  sx={{ minWidth: 725, backgroundColor: "white" }}
                 />
               </LocalizationProvider>
             </Grid>
@@ -238,7 +238,7 @@ const Add = () => {
                   value={todate}
                   onChange={(newValue) => setTodate(newValue)}
                   format="YYYY-MM-DD"
-                  sx={{ minWidth: 494, backgroundColor: "white" }}
+                  sx={{ minWidth: 725, backgroundColor: "white" }}
                 />
               </LocalizationProvider>
             </Grid>
@@ -247,7 +247,7 @@ const Add = () => {
               <FormControl
                 variant="outlined"
                 InputProps={{ style: { backgroundColor: "white" } }}
-                sx={{ minWidth: 494 }}
+                sx={{ minWidth: 725 }}
               >
                 <InputLabel>Country</InputLabel>
                 <Select
@@ -270,7 +270,7 @@ const Add = () => {
               </FormControl>
             </Grid>
             <Grid item xs={6}>
-              <FormControl variant="outlined" sx={{ minWidth: 494 }}>
+              <FormControl variant="outlined" sx={{ minWidth: 725 }}>
                 <InputLabel>Degree</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
@@ -290,7 +290,7 @@ const Add = () => {
               </FormControl>
             </Grid>
             <Grid item xs={6}>
-              <FormControl variant="outlined" sx={{ minWidth: 494 }}>
+              <FormControl variant="outlined" sx={{ minWidth: 725 }}>
                 <InputLabel>University</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
@@ -334,8 +334,8 @@ const Add = () => {
               <img src={imageUrl} alt="Uploaded Image" height="150" />
             )}
           </Grid>
-          <Grid item xs={6}>
-            <Button variant={"outlined"} type={"submit"} sx={{ mt: 3, mb: 2 }}>
+          <Grid item xs={12}>
+            <Button variant={"contained"} type={"submit"} sx={{ mt: 3, mb: 2 }}>
               Submit
             </Button>
           </Grid>

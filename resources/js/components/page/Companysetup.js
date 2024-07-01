@@ -184,7 +184,7 @@ function Companysetup() {
                 id="standard-basic"
                 fullWidth
                 name="description"
-                label="Description"
+                label="Address"
                 variant="outlined"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}

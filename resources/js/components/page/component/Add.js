@@ -37,6 +37,7 @@ const Add = () => {
     axios
       .get(`/api/section/${event.target.value}`)
       .then((response) => {
+        console.log("SECTIONS", response);
         setSectionlist(response.data.data);
       })
       .catch((error) => {
@@ -199,7 +200,7 @@ const Add = () => {
             </Grid>
 
             <Grid item xs={6}>
-              <FormControl variant="outlined" sx={{ minWidth: 494 }}>
+              <FormControl variant="outlined" sx={{ minWidth: 725 }}>
                 <InputLabel>Parent Menu</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
@@ -220,7 +221,7 @@ const Add = () => {
             </Grid>
 
             <Grid item xs={6}>
-              <FormControl variant="outlined" sx={{ minWidth: 494 }}>
+              <FormControl variant="outlined" sx={{ minWidth: 725 }}>
                 <InputLabel>Parent Section</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
@@ -245,7 +246,7 @@ const Add = () => {
             </Grid>
 
             <Grid item xs={6}>
-              <FormControl variant="outlined" sx={{ minWidth: 494 }}>
+              <FormControl variant="outlined" sx={{ minWidth: 725 }}>
                 <InputLabel>Status</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"

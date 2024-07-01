@@ -88,7 +88,7 @@ const Add = () => {
             </Grid>
 
             <Grid item xs={6}>
-              <FormControl variant="outlined" sx={{ minWidth: 494 }}>
+              <FormControl variant="outlined" sx={{ minWidth: 725 }}>
                 <InputLabel>Status</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"

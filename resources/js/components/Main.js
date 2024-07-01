@@ -36,6 +36,7 @@ import Addsection from "./page/section/Add";
 import Editsection from "./page/section/Edit";
 import ComponentList from "./page/component/List";
 import Addcomponent from "./page/component/Add";
+import Editcomponent from "./page/component/Edit";
 import Reviewlist from "./page/review/List";
 import Addreview from "./page/review/Add";
 import Editreview from "./page/review/Edit";
@@ -353,6 +354,14 @@ function Main() {
             element={
               <ProtectedRoute>
                 <Addcomponent />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path={"/app/component/edit/:id"}
+            element={
+              <ProtectedRoute>
+                <Editcomponent />
               </ProtectedRoute>
             }
           ></Route>

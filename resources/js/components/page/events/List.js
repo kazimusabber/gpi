@@ -1,85 +1,114 @@
-import { useState,useEffect,React } from "react";
-
-import {
-    Box, 
-    Button,
-    Container,
-    TextField,
-    CssBaseline,
-    Typography
-} from "@mui/material";
-
-import axios from 'axios';
-import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from "react-router-dom";
-import Grid from '@mui/material/Grid';
+import { useState, React } from "react";
+import { Button } from "@mui/material";
+import "react-toastify/dist/ReactToastify.css";
+import Grid from "@mui/material/Grid";
 import Layout from "../../layout/Layout";
-import BackupIcon from '@mui/icons-material/Backup';
-import { spacing } from '@mui/system';
-import Datatablecomponent from '../../Datatable';
-import Search from '../../search';
-import { Link } from 'react-router-dom';
-import AddIcon from '@mui/icons-material/Add';
+import Datatablecomponent from "../../Datatable";
+import { Link } from "react-router-dom";
+import AddIcon from "@mui/icons-material/Add";
+import CreateIcon from "@mui/icons-material/Create";
+import { format } from "date-fns";
 
-function List() {
+const List = () => {
+  const [delrow, setDelrow] = useState(0);
+  const [searchurl, setSearchurl] = useState("/api/event");
+  const columns = [
+    {
+      name: "Title",
+      selector: (row) => row._title,
+      width: "225px",
+    },
+    {
+      name: "Sub Title",
+      selector: (row) => row._subtitle,
+      width: "300px",
+    },
+    {
+      name: "Description",
+      selector: (row) => row._description,
+      width: "400px",
+    },
+    {
+      name: "Image",
+      cell: (row) => <img src={row._image} width={50} alt={"nothing"} />,
+      selector: (row) => row.link,
+      center: true,
+      width: "120px",
+    },
+    {
+      name: "Latitude & Longitude",
+      selector: (row) => row._latlong,
+      width: "150px",
+    },
+    {
+      name: "Date",
+      selector: (row) => format(new Date(row._date), "do MMM, yyyy"),
+      width: "150px",
+    },
+    {
+      name: "Time",
+      selector: (row) => row._time,
+      width: "120px",
+    },
+    {
+      name: "Location",
+      selector: (row) => row._location,
+      width: "250px",
+    },
+    {
+      name: "Status",
+      cell: (row) => (row._status === 1 ? "Active" : "Inactive"),
+      center: true,
+    },
+    {
+      name: "Action",
+      cell: (row) => (
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Link to={`/app/event/edit/${row.id}`} className="btn">
+            <i className="material-icons text-warning">
+              <CreateIcon sx={{ color: "green" }} />
+            </i>
+          </Link>
+        </div>
+      ),
+      selector: (row) => row.id,
+      width: "120px",
+    },
+  ];
 
-    const [delrow, setDelrow] = useState(0);
-    const [searchurl,setSearchurl]= useState("/api/event"); 
-    const columns = [
-        {
-          name: 'Action',
-          cell:row =><div>
-                          <Link to={`/app/event/edit/${row.id}`} className="btn">
-                            <i className="material-icons text-warning">edit</i>
-                          </Link>
-                      </div>,
-          selector: row => row.id,
-          width: '120px'
-        },
-        {
-          name: 'Title',
-          selector: row => row._title,
-          width: '150px'
-        },
-        {
-          name: 'Sub Title',
-          selector: row => row._subtitle,
-          width: '150px'
-        },
-        {
-          name: 'Date',
-          selector: row => row._date,
-          width: '150px'
-        }
-    ];
-
-
-const renderDatatable = () => {
-  return (
-        <Datatablecomponent columns = {columns} url={searchurl} delrow = {delrow} ></Datatablecomponent>
-      )
-  }
+  const renderDatatable = () => {
     return (
-        <>
-            <Layout>
-                <Grid container>
-                 
-                 <Grid item xs={1}></Grid>
-                    <Grid item xs={11}>
-                    <Link to='/app/event/add' className="btn">
-                       <Button variant="outlined" startIcon={<AddIcon />}>
-                          ADD
-                        </Button>
-                    </Link>
-                    </Grid>
-                    <Grid item xs={1}></Grid>
-                    <Grid item xs={10}>
-                        {renderDatatable()}
-                    </Grid>
-                </Grid>    
-            </Layout>
-        </>
-    )
-}
+      <Datatablecomponent
+        columns={columns}
+        url={searchurl}
+        delrow={delrow}
+      ></Datatablecomponent>
+    );
+  };
+  return (
+    <>
+      <Layout>
+        <Grid container>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={11}>
+            <Link to="/app/event/add" className="btn">
+              <Button
+                variant="contained"
+                startIcon={<AddIcon />}
+                sx={{ marginBottom: "30px" }}
+              >
+                ADD
+              </Button>
+            </Link>
+          </Grid>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={10}>
+            {renderDatatable()}
+          </Grid>
+        </Grid>
+      </Layout>
+    </>
+  );
+};
 
-export default List
+export default List;

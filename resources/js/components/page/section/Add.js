@@ -177,19 +177,6 @@ const Add = () => {
               />
             </Grid>
 
-            {/* <Grid item xs={12}>
-              <TextField
-                id="standard-basic"
-                fullWidth
-                name="description"
-                label="Description"
-                variant="outlined"
-                multiline
-                maxRows={10}
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid> */}
-
             <Grid item xs={12}>
               <ReactQuill
                 theme="snow"
@@ -218,7 +205,7 @@ const Add = () => {
             </Grid>
 
             <Grid item xs={6}>
-              <FormControl variant="outlined" sx={{ minWidth: 494 }}>
+              <FormControl variant="outlined" sx={{ minWidth: 725 }}>
                 <InputLabel>Parent Menu</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
@@ -238,7 +225,7 @@ const Add = () => {
               </FormControl>
             </Grid>
             <Grid item xs={6}>
-              <FormControl variant="outlined" sx={{ minWidth: 494 }}>
+              <FormControl variant="outlined" sx={{ minWidth: 725 }}>
                 <InputLabel>Status</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"

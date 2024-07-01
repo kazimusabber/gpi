@@ -98,8 +98,7 @@ const Add = () => {
           onSubmit={handleSubmit}
           sx={{ padding: "20px 60px" }}
         >
-          <Grid container>
-            <Grid item xs={1}></Grid>
+          <Grid container spacing={2}>
             <Grid item xs={11}>
               <TextField
                 id="standard-basic"
@@ -107,11 +106,11 @@ const Add = () => {
                 name="title"
                 value={title}
                 label="Title"
-                variant="standard"
+                variant="outlined"
+                InputProps={{ style: { backgroundColor: "white" } }}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </Grid>
-            <Grid item xs={1}></Grid>
             <Grid item xs={11}>
               <TextField
                 id="standard-basic"
@@ -119,26 +118,26 @@ const Add = () => {
                 name="subtitle"
                 value={subtitle}
                 label="Sub Title"
-                variant="standard"
+                variant="outlined"
+                InputProps={{ style: { backgroundColor: "white" } }}
                 onChange={(e) => setSubtitle(e.target.value)}
                 multiline
                 maxRows={10}
               />
             </Grid>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={11} sx={{ mt: 2 }}>
+            <Grid item xs={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label="Date"
                   value={publishdate}
                   onChange={(newValue) => setPublishdate(newValue)}
                   format="YYYY-MM-DD"
+                  sx={{ minWidth: 725, backgroundColor: "white" }}
                 />
               </LocalizationProvider>
             </Grid>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={11}>
-              <FormControl variant="standard" sx={{ minWidth: 1000 }}>
+            <Grid item xs={6}>
+              <FormControl variant="outlined">
                 <InputLabel>Status</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
@@ -146,6 +145,7 @@ const Add = () => {
                   onChange={handleChangestatus}
                   label="Status"
                   name="status"
+                  sx={{ minWidth: 600, backgroundColor: "white" }}
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -155,8 +155,6 @@ const Add = () => {
                 </Select>
               </FormControl>
             </Grid>
-
-            <Grid item xs={1} sx={{ mt: 10 }}></Grid>
             <Grid item xs={11} sx={{ mt: 2 }}>
               <Button
                 variant="outlined"
@@ -173,16 +171,14 @@ const Add = () => {
                 />
               </Button>
             </Grid>
-            <Grid item xs={1}></Grid>
             <Grid item xs={11}>
               {imageUrl && (
                 <img src={imageUrl} alt="Uploaded Image" height="150" />
               )}
             </Grid>
-            <Grid item xs={1}></Grid>
             <Grid item xs={11}>
               <Button
-                variant={"outlined"}
+                variant={"contained"}
                 type={"submit"}
                 sx={{ mt: 3, mb: 2 }}
               >

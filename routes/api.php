@@ -119,7 +119,7 @@ Route::get('section/{id}', [SectionController::class, 'showsectionById']);
 
 Route::get('component', [ComponentController::class, 'show']);
 Route::post('component/add', [ComponentController::class, 'store']);
-Route::post('component/edit/{id}', [ComponentController::class, 'edit']);
+Route::get('component/edit/{id}', [ComponentController::class, 'edit']);
 Route::post('component/update/{id}', [ComponentController::class, 'update']);
 
 Route::get('review', [ReviewController::class, 'show']);
