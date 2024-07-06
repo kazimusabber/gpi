@@ -56,7 +56,7 @@ class ComponentController extends Controller
         $profile = Component::create([
             '_title' => $request->title,
             '_subtitle' => $request->subtitle,
-            '_description' => $request->description,
+            '_description' => strip_tags(html_entity_decode($request->description)),
             '_status' => $request->status,
             '_menuid' => $request->menu,
             '_sectionid' => $request->section,
@@ -125,7 +125,7 @@ class ComponentController extends Controller
             $profile = Component::where('id', '=', $id)->update([
                 '_title' => $request->title,
                 '_subtitle' => $request->subtitle,
-                '_description' => $request->description,
+                '_description' => strip_tags(html_entity_decode($request->description)),
                 '_status' => $request->status,
                 '_menuid' => $request->menu,
                 '_sectionid' => $request->section,
@@ -139,7 +139,7 @@ class ComponentController extends Controller
             $profile = Component::where('id', '=', $id)->update([
                 '_title' => $request->title,
                 '_subtitle' => $request->subtitle,
-                '_description' => $request->description,
+                '_description' => strip_tags(html_entity_decode($request->description)),
                 '_status' => $request->status,
                 '_menuid' => $request->menu,
                 '_sectionid' => $request->section,
