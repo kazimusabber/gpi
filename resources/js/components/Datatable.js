@@ -1,11 +1,9 @@
+import React, { useState, useEffect } from "react";
+import DataTable from "react-data-table-component";
 
-import React, {useState, useEffect} from 'react';
-import DataTable from 'react-data-table-component';
-
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import axios from 'axios';
-export default function Datatablecomponent({columns,url,delrow}) {
-
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import axios from "axios";
+export default function Datatablecomponent({ columns, url, delrow }) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
@@ -14,45 +12,47 @@ export default function Datatablecomponent({columns,url,delrow}) {
   const sortIcon = <KeyboardArrowDownIcon />;
   useEffect(() => {
     fetchData(1, perPage);
-  }, [perPage,delrow])
+  }, [perPage, delrow]);
 
   const fetchData = (page, perPage) => {
-    axios.get(url+`?page=${page}&limit=${perPage}`).then((response) => {
-      console.log();
+    axios
+      .get(url + `?page=${page}&limit=${perPage}`)
+      .then((response) => {
+        console.log();
         setIsLoaded(true);
         setItems(response.data.data.data);
-      if(response.data.data){
-        setTotalRows(response.data.data.total);
-      }else{
-        setTotalRows(50);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  }
-  
-  const handlePageChange = page => {
+        if (response.data.data) {
+          setTotalRows(response.data.data.total);
+        } else {
+          setTotalRows(50);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handlePageChange = (page) => {
     fetchData(page, perPage);
-  }
+  };
 
   const handlePerRowsChange = async (newPerPage, page) => {
     setPerPage(newPerPage);
-  }
+  };
 
   const customStyles = {
     headCells: {
-        style: {
-            fontSize:"16px;",
-            fontWeight:"bold",
-        },
+      style: {
+        fontSize: "16px;",
+        fontWeight: "bold",
+      },
     },
     cells: {
-        style: {
-          fontSize:"16px;"
-        },
+      style: {
+        fontSize: "16px;",
+      },
     },
-};
+  };
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -60,18 +60,16 @@ export default function Datatablecomponent({columns,url,delrow}) {
     return <div>Loading...</div>;
   } else {
     return (
-      
-        <DataTable
-          columns={columns}
-          data={items}
-          pagination
-          paginationServer
-          paginationTotalRows={totalRows}
-          onChangePage={handlePageChange}
-          onChangeRowsPerPage={handlePerRowsChange}
-          customStyles={customStyles}
-        />
-      
+      <DataTable
+        columns={columns}
+        data={items}
+        pagination
+        paginationServer
+        paginationTotalRows={totalRows}
+        onChangePage={handlePageChange}
+        onChangeRowsPerPage={handlePerRowsChange}
+        customStyles={customStyles}
+      />
     );
   }
 }

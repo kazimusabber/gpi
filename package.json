@@ -26,6 +26,8 @@
 		"sass-loader": "^11.0.1"
 	},
 	"dependencies": {
+		"@ckeditor/ckeditor5-build-classic": "^42.0.0",
+		"@ckeditor/ckeditor5-react": "^8.0.0",
 		"@emotion/react": "^11.11.1",
 		"@emotion/styled": "^11.11.0",
 		"@mui/base": "^5.0.0-beta.11",
@@ -34,6 +36,7 @@
 		"@mui/x-date-pickers": "^6.11.2",
 		"date-fns": "^3.6.0",
 		"dayjs": "^1.11.9",
+		"quill-html-edit-button": "^2.2.14",
 		"react-data-table-component": "^7.5.3",
 		"react-editor-js": "^2.1.0",
 		"react-quill": "^2.0.0",
