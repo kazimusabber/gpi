@@ -23,6 +23,7 @@ const Edit = () => {
   const [sectionid, setSectionid] = useState("");
   const [menulist, setMenulist] = useState([]);
   const [sectionlist, setSectionlist] = useState([]);
+  const [menuSelected, setMenuSelected] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
@@ -38,6 +39,16 @@ const Edit = () => {
 
   const handleChangemenu = (event) => {
     setMenuid(event.target.value);
+    setMenuSelected(!!event.target.value);
+
+    axios
+      .get(`/api/section/${event.target.value}`)
+      .then((response) => {
+        setSectionlist(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleChangesection = (event) => {
