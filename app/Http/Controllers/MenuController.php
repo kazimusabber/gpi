@@ -38,7 +38,7 @@ class MenuController extends Controller
     {
        $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:255'],
-            'url' => ['required', 'string', 'max:15'],
+            'url' => ['required', 'string', 'max:100'],
         ]);
 
         if($validator->fails()) {
@@ -105,7 +105,7 @@ class MenuController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:255'],
-            'url' => ['required', 'string', 'max:15'],
+            'url' => ['required', 'string', 'max:100'],
         ]);
 
         if($validator->fails()) {

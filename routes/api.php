@@ -25,6 +25,7 @@ use App\Http\Controllers\GeneralqueryController;
 use App\Http\Controllers\RecentVisaController;
 use App\Http\Controllers\CounterController;
 use App\Http\Controllers\ComponentController;
+use App\Http\Controllers\NoticeboardController;
 /*
 /*
 |--------------------------------------------------------------------------
@@ -146,6 +147,12 @@ Route::get('event', [EventController::class, 'show']);
 Route::post('event/add', [EventController::class, 'store']);
 Route::get('event/edit/{id}', [EventController::class, 'edit']);
 Route::post('event/update/{id}', [EventController::class, 'update']);
+
+
+Route::get('noticeboard', [NoticeboardController::class, 'show']);
+Route::post('noticeboard/add', [NoticeboardController::class, 'store']);
+Route::get('noticeboard/edit/{id}', [NoticeboardController::class, 'edit']);
+Route::post('noticeboard/update/{id}', [NoticeboardController::class, 'update']);
 
 Route::get('studentregistration', [StudentregistrationController::class, 'show']);
 Route::post('studentregistration/add', [StudentregistrationController::class, 'store']);

@@ -52,6 +52,9 @@ import Editsociallink from "./page/sociallink/Edit";
 import Eventlist from "./page/events/List";
 import Addevent from "./page/events/Add";
 import Editevent from "./page/events/Edit";
+import Noticeboardlist from "./page/noticeboard/List";
+import Addnotice from "./page/noticeboard/Add";
+import Editnotice from "./page/noticeboard/Edit";
 import Studentregistrationlist from "./page/studentregistration/List";
 import Addstudentregistration from "./page/studentregistration/Add";
 import Editstudentregistration from "./page/studentregistration/Edit";
@@ -482,6 +485,30 @@ function Main() {
             element={
               <ProtectedRoute>
                 <Editevent />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path={"/app/noticeboard"}
+            element={
+              <ProtectedRoute>
+                <Noticeboardlist />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path={"/app/noticeboard/add"}
+            element={
+              <ProtectedRoute>
+                <Addnotice />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path={"/app/noticeboard/edit/:id"}
+            element={
+              <ProtectedRoute>
+                <Editnotice />
               </ProtectedRoute>
             }
           ></Route>
