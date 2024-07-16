@@ -39,7 +39,7 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'universityid' => ['required'],
+            'menuid' => ['required'],
             'image' => ['required']
         ]);
 
@@ -50,11 +50,11 @@ class ImageController extends Controller
         $path = "";
         if($request->hasFile('image')){  
             $image = $request->file('image');
-            $path = $image->store('universityimage', 'public'); // Store the image in the "public/companyimage" directory
+            $path = $image->store('galleryimage', 'public'); // Store the image in the "public/companyimage" directory
         }   
 
         $profile = Image::create([
-            '_universityid' => $request->universityid,
+            '_menuid' => $request->menuid,
             '_image' => asset("/uploads")."/".$path
         ]);
 
@@ -71,8 +71,8 @@ class ImageController extends Controller
     {
         $limit = $request->limit;
         $profile = DB::table('images')
-            ->join('universities', 'images._universityid', '=', 'universities.id')
-            ->select('images.*','universities._name as universityname')
+            ->join('menus', 'images._menuid', '=', 'menus.id')
+            ->select('images.*','menus._title as menuname')
             ->paginate($limit);
         return response()->json(['status' => true, 'data' => $profile]);
     }
@@ -99,7 +99,7 @@ class ImageController extends Controller
     public function update(Request $request, Image $image,$id)
     {
        $validator = Validator::make($request->all(), [
-            'universityid' => ['required'],
+            'menuid' => ['required'],
             'image' => ['required']
         ]);
 
@@ -110,17 +110,17 @@ class ImageController extends Controller
         $path = "";
         if($request->hasFile('image')){  
             $image = $request->file('image');
-            $path = $image->store('universityimage', 'public'); // Store the image in the "public/companyimage" directory
+            $path = $image->store('galleryimage', 'public'); // Store the image in the "public/companyimage" directory
         } 
         
         if($request->hasFile('image')){  
             $profile = Image::where('id', '=', $id)->update([
-                '_universityid' => $request->universityid,
+                '_menuid' => $request->menuid,
                 '_image' => asset("/uploads")."/".$path
             ]); 
         }else{
             $profile = Image::where('id', '=', $id)->update([
-                '_universityid' => $request->universityid
+                '_menuid' => $request->menuid
             ]); 
             
         }

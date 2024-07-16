@@ -34,8 +34,8 @@ const List = () => {
       center: true,
     },
     {
-      name: "University Name",
-      selector: (row) => row.universityname,
+      name: "Menu Name",
+      selector: (row) => row.menuname,
       center: true,
     },
 

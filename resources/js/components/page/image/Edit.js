@@ -16,13 +16,25 @@ const Edit = () => {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(null);
   const [img, setImg] = useState(null);
-  const [universityid, setUniversityid] = useState("");
-  const [universitylist, setUniversitylist] = useState([]);
+  const [menuid, setMenuid] = useState("");
+  const [menulist, setMenulist] = useState([]);
   const params = useParams();
+  const fetchMenu = async () => {
+    axios
+      .get("/api/menu")
+      .then((response) => {
+        setMenulist(response.data.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
+    fetchMenu();
     fetchData();
-    fetchUniversity();
   }, []);
+
 
   const fetchData = async () => {
     await axios
@@ -38,15 +50,15 @@ const Edit = () => {
       });
   };
 
-  const handleChangeuniversity = (event) => {
-    setUniversityid(event.target.value);
+  const handleChangemenu = (event) => {
+    setMenuid(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     formData.append("image", img);
-    formData.append("universityid", universityid);
+    formData.append("menuid", menuid);
     axios
       .post(`/api/image/update/${params.id}`, formData)
       .then(function (response) {
@@ -72,40 +84,29 @@ const Edit = () => {
     reader.readAsDataURL(file);
   };
 
-  const fetchUniversity = async () => {
-    axios
-      .get("/api/university")
-      .then((response) => {
-        setUniversitylist(response.data.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
+  
   return (
     <>
       <Layout>
         <Box component={"form"} onSubmit={handleSubmit}>
           <Grid container>
-            <Grid item xs={1}></Grid>
+          <Grid item xs={1}></Grid>
             <Grid item xs={11}>
-              <FormControl variant="standard" sx={{ minWidth: 1000 }}>
-                <InputLabel>University</InputLabel>
+              <FormControl variant="outlined" sx={{ minWidth: 725 }}>
+                <InputLabel>Menu</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
-                  value={universityid}
-                  onChange={handleChangeuniversity}
-                  label="University"
-                  name="university"
+                  value={menuid}
+                  onChange={handleChangemenu}
+                  label="Menu"
+                  name="menu"
+                  sx={{ backgroundColor: "white" }}
                 >
-                  <MenuItem value="">
+                  <MenuItem value="0">
                     <em>None</em>
                   </MenuItem>
-                  {universitylist.map((university_id) => (
-                    <MenuItem value={university_id.id}>
-                      {university_id._name}
-                    </MenuItem>
+                  {menulist.map((menu_list) => (
+                    <MenuItem value={menu_list.id}>{menu_list._title}</MenuItem>
                   ))}
                 </Select>
               </FormControl>

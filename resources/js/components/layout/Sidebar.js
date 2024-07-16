@@ -194,7 +194,7 @@ const ClippedDrawer = () => {
                 </ListItemButton>
               </ListItem>
             </Link> */}
-            {/* <Link
+            <Link
               style={{
                 textDecoration: "none",
                 color: "rgba(44, 56, 74, .681)",
@@ -206,10 +206,10 @@ const ClippedDrawer = () => {
                   <ListItemIcon>
                     <CameraAltIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"University Image"} />
+                  <ListItemText primary={"Gallery Image"} />
                 </ListItemButton>
               </ListItem>
-            </Link> */}
+            </Link>
             <Link
               style={{
                 textDecoration: "none",
@@ -410,6 +410,23 @@ const ClippedDrawer = () => {
                 </ListItemButton>
               </ListItem>
             </Link> */}
+
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "rgba(44, 56, 74, .681)",
+              }}
+              to="/app/noticeboard"
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AppRegistrationIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Notice Board"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           </List>
         </Box>
       </Drawer>
