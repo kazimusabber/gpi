@@ -11,13 +11,22 @@ class Studentregistration extends Model
 
     protected $fillable = [
         '_name',
+        '_fathername',
+        '_mothername',
         '_dob',
         '_email',
+        '_address',
         '_mobile',
-        '_ielts',
-        '_countryid',
+        '_parentmobile',
+        '_tribal',
+        '_freedom',
+        '_interest',
         '_qualification',
-        '_passport',
-        '_status',
+        '_passyear',
+        '_group',
+        '_board',
+        '_sscroll',
+        '_sscnumber',
+        '_gpa',
     ];
 }
