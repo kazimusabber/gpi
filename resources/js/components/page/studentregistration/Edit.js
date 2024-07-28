@@ -1,246 +1,262 @@
-import { useState,useEffect,React } from "react";
-
-import {
-    Box, 
-    Button,
-    Container,
-    TextField,
-    CssBaseline,
-    Typography
-} from "@mui/material";
-
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-
-import axios from 'axios';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState, useEffect, React } from "react";
+import { Box, Typography, Card, CardContent, Grid } from "@mui/material";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Grid from '@mui/material/Grid';
 import Layout from "../../layout/Layout";
-import BackupIcon from '@mui/icons-material/Backup';
-import { toast } from 'react-toastify';
-import { spacing } from '@mui/system';
-import dayjs from 'dayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Link ,useParams} from 'react-router-dom';
+import { toast } from "react-toastify";
+import dayjs from "dayjs";
+import { useParams } from "react-router-dom";
+
 function Edit() {
-    const navigate = useNavigate();
-    const params = useParams();
-    const [status, setStatus] = useState("");
-    const [countryid, setCountryid] = useState("");
-    const [passport, setPassport] = useState("");
-    const [qualification, setQualification] = useState("");
-    const [ielts, setIelts] = useState("");
-    const [name, setName] = useState("");
-    const [mobile, setMobile] = useState("");
-    const [dob, setDob] = useState(dayjs());
-    const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const params = useParams();
+  const [qualification, setQualification] = useState("");
+  const [name, setName] = useState("");
+  const [fathername, setFatherName] = useState("");
+  const [mothername, setMotherName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [parentmobile, setParentMobile] = useState("");
+  const [dob, setDob] = useState(dayjs());
+  const [email, setEmail] = useState("");
+  const [tribal, setTribal] = useState("");
+  const [freedom, setFreedom] = useState("");
+  const [interest, setInterest] = useState("");
+  const [passyear, setPassYear] = useState("");
+  const [group, setGroup] = useState("");
+  const [board, setBoard] = useState("");
+  const [sscroll, setSSCRoll] = useState("");
+  const [sscnum, setSSCNum] = useState("");
+  const [gpa, setGPA] = useState("");
 
-    const [countrylist, setCountrylist] = useState([]);
-    const handleChangecountry = (event) => {
-        setCountryid(event.target.value);
-    };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    const handleChangequalification = (event) => {
-        setQualification(event.target.value);
-    };
-
-    const handleChangepassport = (event) => {
-        setPassport(event.target.value);
-    };
-
-    const handleChangeielts = (event) => {
-        setIelts(event.target.value);
-    };
-
-    const handleChangestatus = (event) => {
-        setStatus(event.target.value);
+  const fetchData = async () => {
+    await axios
+      .get(`/api/studentregistration/edit/${params.id}`)
+      .then(({ data }) => {
+        const alldata = data.data;
+        setName(alldata._name);
+        setFatherName(alldata._fathername);
+        setMotherName(alldata._mothername);
+        setMobile(alldata._mobile);
+        setParentMobile(alldata._parentmobile);
+        setEmail(alldata._email);
+        setTribal(alldata._tribal);
+        setFreedom(alldata._freedom);
+        setInterest(alldata._interest);
+        setQualification(alldata._qualification);
+        setPassYear(alldata._passyear);
+        setDob(dayjs(alldata._dob)); // Convert to dayjs object
+        setGroup(alldata._group);
+        setBoard(alldata._board);
+        setSSCRoll(alldata._sscroll);
+        setSSCNum(alldata._sscnumber);
+        setGPA(alldata._gpa);
+        toast("Data Found");
+      })
+      .catch(({ response: { data } }) => {
+        toast("No Data Found");
+      });
   };
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        const formData = new FormData(event.currentTarget);
-        formData.append('status', status);
-        formData.append('countryid', countryid);
-        formData.append('passport', passport);
-        formData.append('qualification', qualification);
-        formData.append('ielts', ielts);
-        formData.append('dob', dob);
-
-        axios.post(`/api/studentregistration/update/${params.id}`, formData).then(function(response){
-            console.log(response);
-            if(response.data.errors){
-                toast(response.data.message);
-            }else{
-                toast("Registration Successful");
-            }
-            // navigate("/app/dashboard"); 
-        }).catch(function (error) {
-            console.log(error.message);
-            toast("hello");
-        });
-    }
-
-
-    useEffect(() => {
-        fetchData();
-    }, [])
-
-    const fetchData = async () => {
-        await axios.get(`/api/studentregistration/edit/${params.id}`).then(({data})=>{
-            const alldata = data.data;
-            setName(alldata._name);
-            setMobile(alldata._mobile);
-            setEmail(alldata._email);
-            setIelts(alldata._ielts);
-            setCountryid(alldata._countryid);
-            setPassport(alldata._passport);
-            setQualification(alldata._qualification);
-            setStatus(alldata._status);
-            setDob(dayjs(alldata._dob));
-            toast("Data Found");
-        }).catch(({response:{data}})=>{
-            toast("No Data Found");
-        })
-    }
-
-
-    useEffect(() => {
-        axios.get('/api/country')
-        .then(response => {
-            setCountrylist(response.data.data.data);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-
-        fetchData();
-        
-    }, []);
-
-    return (
-        <>
-            <Layout>
-                <Box component={"form"} onSubmit={handleSubmit}>
-                    <Grid container>
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={11}>
-                                <TextField id="standard-basic" fullWidth  name="name" label="Full Name" value={name} variant="standard" onChange={(e) => setName(e.target.value)}/>
-                            </Grid>
-                            <Grid item xs={1}></Grid >
-                            <Grid item xs={11} sx={{ mt: 2}}>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker 
-                                      label="Date of Birth" 
-                                      value={dob}
-                                      onChange={(newValue) => setDob(newValue)} format="YYYY-MM-DD"
-                                    />
-                                </LocalizationProvider>
-                            </Grid>
-
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={11}>
-                                <TextField id="standard-basic" fullWidth  name="email" label="Email" value={email} variant="standard" onChange={(e) => setEmail(e.target.value)}/>
-                            </Grid>
-
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={11}>
-                                <TextField id="standard-basic" fullWidth  name="mobile" label="Mobile" value={mobile} variant="standard" onChange={(e) => setMobile(e.target.value)}/>
-                            </Grid>
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={11}>
-                                <FormControl variant="standard" sx={{minWidth: 1000 }}>
-                                <InputLabel>Country</InputLabel>
-                                <Select
-                                  value={countryid}
-                                  onChange={handleChangecountry}
-                                  label="Country" >
-                                    {countrylist?.map((country) => (
-                                        <MenuItem value={country.id}><em>{country._name}</em></MenuItem>
-                                    ))}  
-                                </Select>
-                              </FormControl>
-                            </Grid>
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={11}>
-                                <FormControl variant="standard" sx={{minWidth: 1000 }}>
-                                    <InputLabel>Qualification</InputLabel>
-                                    <Select
-                                    labelId="demo-simple-select-standard-label"
-                                    value={qualification}
-                                    onChange={handleChangequalification}>
-                                        <MenuItem value=""><em>None</em></MenuItem>
-                                        <MenuItem value="SSC">SSC / O LEVEL</MenuItem>
-                                        <MenuItem value="HSC">HSC / A LEVEL</MenuItem>
-                                        <MenuItem value="BACHELOR">BACHELOR</MenuItem>
-                                        <MenuItem value="MASTERS">MASTERS</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={11}>
-                                <FormControl variant="standard" sx={{minWidth: 1000 }}>
-                                    <InputLabel>Have IELTS / PTE ?</InputLabel>
-                                    <Select
-                                    labelId="demo-simple-select-standard-label"
-                                    value={ielts}
-                                    onChange={handleChangeielts}>
-                                        <MenuItem value=""><em>None</em></MenuItem>
-                                        <MenuItem value="1">Yes</MenuItem>
-                                        <MenuItem value="2">No</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={11}>
-                                <FormControl variant="standard" sx={{minWidth: 1000 }}>
-                                    <InputLabel>Passport availability ?</InputLabel>
-                                    <Select
-                                    labelId="demo-simple-select-standard-label"
-                                    value={passport}
-                                    onChange={handleChangepassport}>
-                                        <MenuItem value=""><em>None</em></MenuItem>
-                                        <MenuItem value="1">Yes</MenuItem>
-                                        <MenuItem value="2">No</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={11}>
-                                <FormControl variant="standard" sx={{minWidth: 1000 }}>
-                                <InputLabel>Status</InputLabel>
-                                <Select
-                                  labelId="demo-simple-select-standard-label"
-                                  value={status}
-                                  onChange={handleChangestatus}>
-                                    <MenuItem value=""><em>None</em></MenuItem>
-                                    <MenuItem value="1">Active</MenuItem>
-                                    <MenuItem value="2">In Active</MenuItem>
-                                </Select>
-                              </FormControl>
-                            </Grid>
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={11}>
-                                <Button
-                                    variant={"outlined"}
-                                    type={"submit"}
-                                    sx={{ mt: 3, mb: 2 }}
-                                >
-                                    Submit
-                                </Button>
-                            </Grid>
-                    </Grid>    
-                </Box>
-            </Layout>
-        </>
-    )
+  return (
+    <Layout>
+      <Box
+        sx={{
+          padding: "20px 60px",
+          backgroundColor: "#f5f5f5",
+          minHeight: "100vh",
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{ marginBottom: 4, textAlign: "center", color: "#3f51b5" }}
+        >
+          Student Details
+        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Full Name
+                </Typography>
+                <Typography variant="h6">{name}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Father's Name
+                </Typography>
+                <Typography variant="h6">{fathername}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Mother's Name
+                </Typography>
+                <Typography variant="h6">{mothername}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Date of Birth
+                </Typography>
+                <Typography variant="h6">
+                  {dob.isValid() ? dob.format("DD-MM-YYYY") : ""}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Email
+                </Typography>
+                <Typography variant="h6">{email}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Mobile
+                </Typography>
+                <Typography variant="h6">{mobile}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Parent's Mobile
+                </Typography>
+                <Typography variant="h6">{parentmobile}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Tribal
+                </Typography>
+                <Typography variant="h6">
+                  {tribal ? 1 === "Yes" : "No"}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Freedom Fighter's Child/Grandchild
+                </Typography>
+                <Typography variant="h6">
+                  {freedom ? 1 === "Yes" : "No"}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Interested in Studying
+                </Typography>
+                <Typography variant="h6">{interest}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Qualification
+                </Typography>
+                <Typography variant="h6">{qualification}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Passing Year
+                </Typography>
+                <Typography variant="h6">{passyear}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Group
+                </Typography>
+                <Typography variant="h6">{group}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  Board
+                </Typography>
+                <Typography variant="h6">{board}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  SSC Roll
+                </Typography>
+                <Typography variant="h6">{sscroll}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  SSC No.
+                </Typography>
+                <Typography variant="h6">{sscnum}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card variant="outlined" sx={{ borderRadius: 2, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="subtitle1" color="textSecondary">
+                  GPA
+                </Typography>
+                <Typography variant="h6">{gpa}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Box>
+    </Layout>
+  );
 }
 
-export default Edit
+export default Edit;

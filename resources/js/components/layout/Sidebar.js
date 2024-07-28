@@ -28,7 +28,8 @@ import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import EventIcon from "@mui/icons-material/Event";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
 
 const drawerWidth = 230;
 
@@ -394,7 +395,7 @@ const ClippedDrawer = () => {
               </ListItem>
             </Link>
 
-            {/* <Link
+            <Link
               style={{
                 textDecoration: "none",
                 color: "rgba(44, 56, 74, .681)",
@@ -404,12 +405,12 @@ const ClippedDrawer = () => {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <AppRegistrationIcon />
+                    <HowToRegIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Student Reg"} />
+                  <ListItemText primary={"Student Registrations"} />
                 </ListItemButton>
               </ListItem>
-            </Link> */}
+            </Link>
 
             <Link
               style={{
@@ -421,7 +422,7 @@ const ClippedDrawer = () => {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <AppRegistrationIcon />
+                    <DashboardIcon />
                   </ListItemIcon>
                   <ListItemText primary={"Notice Board"} />
                 </ListItemButton>

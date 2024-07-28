@@ -16,14 +16,23 @@ class CreateStudentregistrationsTable extends Migration
         Schema::create('studentregistrations', function (Blueprint $table) {
             $table->id();
             $table->string('_name');
+            $table->string('_fathername');
+            $table->string('_mothername');
             $table->date('_dob');
-            $table->string('_email')->nullable();
+            $table->string('_email');
             $table->string('_mobile');
-            $table->string('_ielts')->nullable();;
-            $table->integer('_countryid');
-            $table->text('_qualification')->nullable();;
-            $table->tinyInteger('_passport');
-            $table->tinyInteger('_status');
+            $table->string('_parentmobile');
+            $table->text('_address');
+            $table->string('_qualification');
+            $table->tinyInteger('_tribal');
+            $table->tinyInteger('_freedom');
+            $table->string('_interest');
+            $table->string('_passyear');
+            $table->string('_group');
+            $table->string('_board');
+            $table->string('_sscroll');
+            $table->string('_sscnumber');
+            $table->string('_gpa');
             $table->timestamps();
         });
     }

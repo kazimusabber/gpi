@@ -38,30 +38,36 @@ class StudentregistrationController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'mobile' => ['required', 'string', 'max:15'],
-            'email' => ['required', 'string', 'max:30'],
+            'mobile' => ['required', 'string', 'max:14'],
+            'passyear' => ['required', 'string'],
         ]);
 
-        if($validator->fails()) {
-            return response()->json(['status' => false, 'message' => 'Validation Error', 'errors' => $validator->errors()], 202);
+        if ($validator->fails()) {
+            return redirect()->back()->with(['error' => 'Please fill out all the necessary fields.']);
         }
         
-       
         $profile = Studentregistration::create([
             '_name' => $request->name,
-            '_dob' => date("Y-m-d ",strtotime($request->dob)),
-            '_ielts' => $request->ielts,
-            '_countryid' => $request->countryid,
+            '_fathername' => $request->fathername,
+            '_mothername' => $request->mothername,
+            '_dob' => date("Y-m-d ", strtotime($request->dob)),
+            '_email' => $request->email,
+            '_address' => $request->address,
             '_qualification' => $request->qualification,
             '_mobile' => $request->mobile,
-            '_email' => $request->email,
-            '_passport' => $request->passport,
-            '_status' => $request->status,
+            '_parentmobile' => $request->parentmobile,
+            '_tribal' => $request->tribal,
+            '_freedom' => $request->freedom,
+            '_interest' => $request->interest,
+            '_passyear' => $request->passyear,
+            '_group' => $request->group,
+            '_board' => $request->board,
+            '_sscroll' => $request->sscroll,
+            '_sscnumber' => $request->sscnumber,
+            '_gpa' => $request->gpa,
         ]);
 
-
-        return response()->json(['status' => true, 'profile' => $profile]);
+       return redirect()->back()->with(['success' => 'Application submitted successfully. We will contact you soon.']);
     }
 
     /**
@@ -74,9 +80,7 @@ class StudentregistrationController extends Controller
     {
         $limit = $request->limit;
         
-        $profile = DB::table("studentregistrations")
-        ->leftJoin('countries', 'countries.id', '=', 'studentregistrations._countryid')
-        ->select('studentregistrations.*', 'countries._name as countryname')->paginate($limit);
+        $profile = DB::table("studentregistrations")->select('studentregistrations.*')->paginate($limit);
 
         return response()->json(['status' => true, 'data' => $profile]);
     }
@@ -104,26 +108,33 @@ class StudentregistrationController extends Controller
     public function update(Request $request, Studentregistration $studentregistration , $id)
     {
         $validator = Validator::make($request->all(), [
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:15'],
-            'email' => ['required', 'string', 'max:30'],
-            
+            'mobile' => ['required', 'string', 'max:14'],
+            'passyear' => ['required', 'string'],
         ]);
 
         if($validator->fails()) {
             return response()->json(['status' => false, 'message' => 'Validation Error', 'errors' => $validator->errors()], 202);
         }
         
-        
         $profile = Studentregistration::where('id', '=', $id)->update([
-            '_firstname' => $request->firstname,
-            '_lastname' => $request->lastname,
-            '_phone' => $request->phone,
+            '_name' => $request->name,
+            '_fathername' => $request->fathername,
+            '_mothername' => $request->mothername,
+            '_dob' => date("Y-m-d ", strtotime($request->dob)),
             '_email' => $request->email,
-            '_message' => $request->message,
-            '_status' => $request->status,
-            
+            '_address' => $request->address,
+            '_qualification' => $request->qualification,
+            '_mobile' => $request->mobile,
+            '_parentmobile' => $request->parentmobile,
+            '_tribal' => $request->tribal,
+            '_freedom' => $request->freedom,
+            '_interest' => $request->interest,
+            '_passyear' => $request->passyear,
+            '_group' => $request->group,
+            '_board' => $request->board,
+            '_sscroll' => $request->sscroll,
+            '_sscnumber' => $request->sscnumber,
+            '_gpa' => $request->gpa,
         ]);
 
         return response()->json(['status' => true, 'profile' => $profile]);
