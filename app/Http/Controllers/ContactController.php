@@ -36,27 +36,25 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-       $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:15'],
-            'email' => ['required', 'string', 'max:25']
+        $validator = Validator::make($request->all(), [
+            'name' => ['required'],
+            'mobile' => ['required', 'string', 'max:14'],
+            'message' => ['required'],
         ]);
 
-        if($validator->fails()) {
-            return response()->json(['status' => false, 'message' => 'Validation Error', 'errors' => $validator->errors()], 202);
+        if ($validator->fails()) {
+            return redirect()->back()->with(['error' => 'Please fill out all the necessary fields.']);
         }
-        
         
         $profile = Contact::create([
             '_name' => $request->name,
-            '_phone' => $request->phone,
             '_email' => $request->email,
-            '_address' => $request->address,
-            '_status' => $request->status,
-            
+            '_mobile' => $request->mobile,
+            '_topic' => $request->topic,
+            '_message' => $request->message,
         ]);
 
-        return response()->json(['status' => true, 'profile' => $profile]);
+        return redirect()->back()->with(['success' => 'Query message submitted successfully. We will contact you soon.']);
     }
 
     /**
@@ -97,23 +95,21 @@ class ContactController extends Controller
     public function update(Request $request, Contact $contact,$id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:15'],
-            'email' => ['required', 'string', 'max:25']
+            'name' => ['required'],
+            'mobile' => ['required', 'string', 'max:14'],
+            'message' => ['required'],
         ]);
 
         if($validator->fails()) {
             return response()->json(['status' => false, 'message' => 'Validation Error', 'errors' => $validator->errors()], 202);
         }
         
-        
         $profile = Contact::where('id', '=', $id)->update([
             '_name' => $request->name,
-            '_phone' => $request->phone,
             '_email' => $request->email,
-            '_address' => $request->address,
-            '_status' => $request->status,
-           
+            '_mobile' => $request->mobile,
+            '_topic' => $request->topic,
+            '_message' => $request->message,
         ]);
 
         return response()->json(['status' => true, 'profile' => $profile]);

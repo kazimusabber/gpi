@@ -30,6 +30,7 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import EventIcon from "@mui/icons-material/Event";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
+import MessageIcon from "@mui/icons-material/Message";
 
 const drawerWidth = 230;
 
@@ -179,7 +180,7 @@ const ClippedDrawer = () => {
                 </ListItemButton>
               </ListItem>
             </Link> */}
-            {/* <Link
+            <Link
               style={{
                 textDecoration: "none",
                 color: "rgba(44, 56, 74, .681)",
@@ -189,12 +190,12 @@ const ClippedDrawer = () => {
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <PermContactCalendarIcon />
+                    <MessageIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Contact"} />
+                  <ListItemText primary={"Messages"} />
                 </ListItemButton>
               </ListItem>
-            </Link> */}
+            </Link>
             <Link
               style={{
                 textDecoration: "none",
