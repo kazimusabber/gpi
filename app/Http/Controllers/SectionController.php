@@ -42,7 +42,8 @@ class SectionController extends Controller
             'subtitle' => ['required', 'string'],
             'heading' => ['required', 'string', 'max:255'],
             'subheading' => ['required', 'string'],
-            'description' => ['required']
+            'description' => ['required'],
+            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048']
         ]);
 
         if($validator->fails()) {
@@ -55,7 +56,6 @@ class SectionController extends Controller
             $path = $image->store('sectionimage', 'public'); // Store the image in the "public/companyimage" directory
         } 
         
-        
         $profile = Section::create([
             '_title' => $request->title,
             '_subtitle' => $request->subtitle,
@@ -67,8 +67,7 @@ class SectionController extends Controller
             '_link' => $request->link,
             '_videourl' => $request->videourl,
             '_sort' => $request->position,
-            '_image' => asset("/uploads")."/".$path
-            
+            '_image' => $path ? asset("/uploads") . "/" . $path : null
         ]);
 
         return response()->json(['status' => true, 'profile' => $profile]);
@@ -149,7 +148,8 @@ class SectionController extends Controller
             'subtitle' => ['required', 'string'],
             'heading' => ['required', 'string', 'max:255'],
             'subtitle' => ['required', 'string'],
-            'description' => ['required']
+            'description' => ['required'],
+            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048']
         ]);
 
         if($validator->fails()) {
@@ -174,8 +174,7 @@ class SectionController extends Controller
                 '_link' => $request->link,
                 '_videourl' => $request->videourl,
                 '_sort' => $request->position,
-                '_image' => asset("/uploads")."/".$path
-               
+                '_image' => $path ? asset("/uploads") . "/" . $path : null
             ]);
         }else{
             $profile = Section::where('id', '=', $id)->update([

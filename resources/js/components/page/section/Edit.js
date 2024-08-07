@@ -290,13 +290,11 @@ const Edit = () => {
               variant="outlined"
               startIcon={<BackupIcon />}
               component="label"
-              sx={{ marginBottom: "30px" }}
             >
-              {" "}
               Upload Logo
               <input
                 type="file"
-                accept="image/*"
+                accept="image/*,application/pdf"
                 hidden
                 onChange={handleFileUpload}
               />
