@@ -250,11 +250,10 @@ const Add = () => {
               startIcon={<BackupIcon />}
               component="label"
             >
-              {" "}
               Upload Logo
               <input
                 type="file"
-                accept="image/*"
+                accept="image/*,application/pdf"
                 hidden
                 onChange={handleFileUpload}
               />
