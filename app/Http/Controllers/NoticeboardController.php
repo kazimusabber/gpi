@@ -39,7 +39,7 @@ class NoticeboardController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:255'],
             'subtitle' => ['required', 'string'],
-            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048']
+            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:3072']
         ]);
 
         if($validator->fails()) {
@@ -106,7 +106,7 @@ class NoticeboardController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:255'],
             'subtitle' => ['required', 'string'],
-            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048']
+            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:3072']
         ]);
 
         if($validator->fails()) {
