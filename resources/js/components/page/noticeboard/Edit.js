@@ -233,9 +233,20 @@ const Add = () => {
                 />
               </Button>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               {imageUrl && (
-                <img src={imageUrl} alt="Uploaded Image" height="150" />
+                <>
+                  {imageUrl.endsWith(".pdf") ? (
+                    <object
+                      data={imageUrl}
+                      type="application/pdf"
+                      width="100%"
+                      height="500px"
+                    ></object>
+                  ) : (
+                    <img src={imageUrl} alt="Uploaded File" height="150" />
+                  )}
+                </>
               )}
             </Grid>
             <Grid item xs={12}>

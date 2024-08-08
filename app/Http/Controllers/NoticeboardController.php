@@ -38,7 +38,8 @@ class NoticeboardController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:255'],
-            'subtitle' => ['required', 'string']
+            'subtitle' => ['required', 'string'],
+            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048']
         ]);
 
         if($validator->fails()) {
@@ -61,8 +62,7 @@ class NoticeboardController extends Controller
             '_status' => $request->status,
             '_location' => $request->location,
             '_latlong' => $request->latlong,
-            '_image' => asset("/uploads")."/".$path
-            
+            '_image' => $path ? asset("/uploads") . "/" . $path : null
         ]);
 
         return response()->json(['status' => true, 'profile' => $profile]);
@@ -79,8 +79,6 @@ class NoticeboardController extends Controller
         $limit = $request->limit;
         $profile = Noticeboard::paginate($limit);
         return response()->json(['status' => true, 'data' => $profile]);
-        
-        
     }
 
     /**
@@ -108,6 +106,7 @@ class NoticeboardController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:255'],
             'subtitle' => ['required', 'string'],
+            'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048']
         ]);
 
         if($validator->fails()) {
@@ -130,7 +129,7 @@ class NoticeboardController extends Controller
                 '_status' => $request->status,
                 '_location' => $request->location,
                 '_latlong' => $request->latlong,
-                '_image' => asset("/uploads")."/".$path
+                '_image' => $path ? asset("/uploads") . "/" . $path : null
             ]);
         }else{
            $profile = Noticeboard::where('id', '=', $id)->update([
@@ -142,7 +141,6 @@ class NoticeboardController extends Controller
                 '_latlong' => $request->latlong,
                 '_date' => date("Y-m-d ",strtotime($request->date)),
                 '_status' => $request->status
-               
             ]); 
         }
         
