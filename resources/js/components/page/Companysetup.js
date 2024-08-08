@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Layout from "../layout/Layout";
 import BackupIcon from "@mui/icons-material/Backup";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 function Companysetup() {
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(null);
@@ -18,6 +21,25 @@ function Companysetup() {
   const [latlong, setLatlong] = useState("");
   const [website, setWebsite] = useState("");
   const [description, setDescription] = useState("");
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      [{ align: [] }],
+      ["link", "image", "video"],
+      ["clean"],
+      [{ color: [] }, { background: [] }],
+    ],
+  };
 
   useEffect(() => {
     fetchProfile();
@@ -109,7 +131,7 @@ function Companysetup() {
               />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 id="standard-basic"
                 fullWidth
@@ -137,17 +159,15 @@ function Companysetup() {
               />
             </Grid>
 
-            <Grid item xs={6}>
-              <TextField
-                id="standard-basic"
-                fullWidth
+            <Grid item xs={12}>
+              <ReactQuill
                 name="mobile"
                 label="Mobile"
-                variant="outlined"
+                multiline
                 value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
-                sx={{ marginBottom: "10px" }}
-                InputProps={{ style: { backgroundColor: "white" } }}
+                onChange={(value) => setMobile(value)}
+                style={{ backgroundColor: "white", height: "200px" }}
+                modules={modules}
               />
             </Grid>
 
