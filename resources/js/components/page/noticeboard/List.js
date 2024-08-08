@@ -30,7 +30,23 @@ const List = () => {
     },
     {
       name: "Image",
-      cell: (row) => <img src={row._image} width={50} alt={"nothing"} />,
+      cell: (row) => {
+        const isPdf = row._image.endsWith(".pdf");
+        return isPdf ? (
+          <object
+            data={row._image}
+            type="application/pdf"
+            width="50"
+            height="50"
+          >
+            <a href={row._image} target="_blank" rel="noopener noreferrer">
+              View PDF
+            </a>
+          </object>
+        ) : (
+          <img src={row._image} width={50} alt="nothing" />
+        );
+      },
       selector: (row) => row.link,
       center: true,
       width: "120px",
